@@ -1,0 +1,42 @@
+# Configuración de entornos y secretos
+.env
+.env.local
+.env.production
+.env.development
+
+# Bases de datos y archivos de datos locales
+data/
+*.sqlite3
+*.db
+backend/instance/
+
+# Backend (Python/Flask)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Frontend (Angular/Node)
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# IDE y Sistema Operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Docker y Build
+docker-compose.override.yml
+*.log
