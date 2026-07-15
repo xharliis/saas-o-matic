@@ -108,7 +108,7 @@ docker compose up -d --build
 Una vez finalizado el proceso de construcción, el sistema estará disponible en las siguientes direcciones:
 *   **Frontend (Panel Dashboard)**: [http://localhost:4200](http://localhost:4200)
 *   **Backend (API REST)**: [http://localhost:5000/api](http://localhost:5000/api)
-*   **Visualizador de Base de Datos (DB Viewer)**: [http://localhost:8081](http://localhost:8081)
+*   **Visualizador de Base de Datos (DB Viewer)**: [http://localhost:8080](http://localhost:8080)
 
 ---
 
