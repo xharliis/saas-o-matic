@@ -30,21 +30,16 @@ saas-o-matic/
 │   ├── app.py
 │   ├── config.py
 │   ├── models/
-│   │   ├── __init__.py
 │   │   ├── database.py
 │   │   ├── customer.py
 │   │   └── simulation.py
 │   ├── controllers/
-│   │   ├── __init__.py
 │   │   ├── customer_controller.py
 │   │   └── simulation_controller.py
 │   ├── services/
-│   │   ├── __init__.py
 │   │   ├── tax_service.py
-│   │   ├── pricing_service.py
-│   │   └── currency_service.py
+│   │   └── pricing_service.py
 │   └── schemas/
-│       ├── __init__.py
 │       ├── customer_schema.py
 │       └── simulation_schema.py
 ├── frontend/
@@ -52,26 +47,32 @@ saas-o-matic/
 │   ├── package.json
 │   ├── angular.json
 │   └── src/
-│       ├── app/
-│       │   ├── models/
-│       │   │   ├── customer.ts
-│       │   │   ├── simulation.ts
-│       │   │   └── currency.model.ts
-│       │   ├── services/
-│       │   │   ├── api.service.ts
-│       │   │   ├── currency.service.ts
-│       │   │   └── pricing.service.ts
-│       │   ├── components/
-│       │   │   ├── customer-card/
-│       │   │   ├── simulation-form/
-│       │   │   ├── price-display/
-│       │   │   └── currency-selector/
-│       │   └── pages/
-│       │       ├── dashboard/
-│       │       └── customer-detail/
-│       └── environments/
+│       ├── index.html
+│       ├── main.ts
+│       ├── styles.css
+│       ├── assets/
+│       │   └── images/
+│       └── app/
+│           ├── app.component.ts
+│           ├── app.component.css
+│           ├── app.routes.ts
+│           ├── models/
+│           │   └── customer.model.ts
+│           ├── services/
+│           │   ├── api.service.ts
+│           │   └── currency.service.ts
+│           └── pages/
+│               ├── dashboard/
+│               │   ├── dashboard.component.ts
+│               │   └── dashboard.component.css
+│               ├── customer-detail/
+│               │   ├── customer-detail.component.ts
+│               │   └── customer-detail.component.css
+│               └── customer-form/
+│                   ├── customer-form.component.ts
+│                   └── customer-form.component.css
 └── data/
-    └── .gitkeep
+    └── saas-o-matic.db
 ```
 
 ---
@@ -85,7 +86,7 @@ saas-o-matic/
 | id | INTEGER | PRIMARY KEY, AUTOINCREMENT |
 | nombre_empresa | VARCHAR(150) | NOT NULL |
 | identificador_fiscal | VARCHAR(50) | NOT NULL, UNIQUE |
-| correo | VARCHAR(120) | NOT NULL |
+| correo | VARCHAR(120) | NOT NULL, UNIQUE |
 | pais | VARCHAR(100) | NOT NULL |
 | plan | VARCHAR(50) | NOT NULL |
 
@@ -130,11 +131,12 @@ Ejemplo de cálculo para 15 usuarios:
 | País | Impuesto | Tasa |
 | :--- | :--- | :--- |
 | España | IVA | 21% |
-| Reino Unido | VAT | 20% |
 | Alemania | IVA | 19% |
 | Francia | IVA | 20% |
-| Italia | IVA | 22% |
-| Estados Unidos | Tax | 0% |
+| Reino Unido | VAT | 20% |
+| Japón | Impuesto al Consumo | 10% |
+| Canadá | GST federal | 5% |
+| Estados Unidos | Tax | 10% |
 | Otros | Default | 0% |
 
 ### Algoritmo de Validación Fiscal para España

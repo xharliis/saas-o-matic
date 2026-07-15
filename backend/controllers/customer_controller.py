@@ -64,7 +64,7 @@ def obtener_clientes():
     try:
         consulta_busqueda = request.args.get('q', '').strip()
         page = request.args.get('page', 1, type=int)
-        per_page = request.args.get('per_page', 8, type=int)
+        per_page = request.args.get('per_page', 9, type=int)
 
         query = Cliente.query
         if consulta_busqueda:

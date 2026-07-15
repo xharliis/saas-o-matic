@@ -7,9 +7,9 @@
 **Detalles:**
 - Campos obligatorios: nombre de empresa, identificador fiscal, email, pais
 - Campo opcional: plan elegido (default: 'basic')
-- El email debe tener formato valido
-- El identificador fiscal debe ser validado algoritmicamente segun el pais
-- No se permite duplicar el par tax_id + country
+- El email debe tener formato valido y ser unico en el sistema
+- El identificador fiscal debe ser validado algoritmicamente segun el pais y ser unico
+- No se permite duplicar el identificador fiscal ni el correo electrónico en diferentes clientes
 
 **Validaciones:**
 - RF-01.1: El nombre de empresa no puede estar vacio
@@ -68,7 +68,7 @@
 **Detalles:**
 - RF-05.1: Todos los campos excepto id pueden ser modificados
 - RF-05.2: Si se cambia el pais, revalidar el identificador fiscal
-- RF-05.3: Si se cambia el tax_id, verificar que no exista duplicado para ese pais
+- RF-05.3: Si se cambia el tax_id o el correo, verificar que no existan duplicados
 - RF-05.4: Mantener historial de simulaciones tras la edicion
 
 ---
@@ -118,13 +118,15 @@
 **Descripcion:** El sistema debe aplicar el impuesto correspondiente al pais del cliente.
 
 **Detalles:**
-- RF-09.1: Espana: IVA 21%
-- RF-09.2: Reino Unido: VAT 20%
-- RF-09.3: Alemania: IVA 19%
-- RF-09.4: Francia: IVA 20%
-- RF-09.5: Italia: IVA 22%
-- RF-09.6: Resto de paises: 0% por defecto
-- RF-09.7: El impuesto se calcula sobre el coste base
+- RF-09.1: España: IVA 21%
+- RF-09.2: Alemania: IVA 19%
+- RF-09.3: Francia: IVA 20%
+- RF-09.4: Reino Unido: VAT 20%
+- RF-09.5: Japón: Impuesto al Consumo 10%
+- RF-09.6: Canadá: GST federal 5%
+- RF-09.7: Estados Unidos: Tax 10%
+- RF-09.8: Resto de paises: 0% por defecto
+- RF-09.9: El impuesto se calcula sobre el coste base
 
 **Ejemplo:**
 - Coste base: 140 EUR, Cliente en Espana
@@ -260,7 +262,7 @@
 - RF-19.1: Parametros de pagina y elementos por pagina
 - RF-19.2: Metadata con total de elementos y paginas disponibles
 - RF-19.3: Paginacion en frontend con navegacion entre paginas
-- RF-19.4: 10 elementos por pagina por defecto
+- RF-19.4: 9 elementos por pagina por defecto
 
 ---
 
