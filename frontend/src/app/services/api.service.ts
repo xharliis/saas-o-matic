@@ -13,12 +13,14 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getClientes(consulta?: string): Observable<Cliente[]> {
-    let parametros = new HttpParams();
+  getClientes(consulta?: string, page: number = 1, perPage: number = 6): Observable<any> {
+    let parametros = new HttpParams()
+      .set('page', page.toString())
+      .set('per_page', perPage.toString());
     if (consulta) {
       parametros = parametros.set('q', consulta);
     }
-    return this.http.get<Cliente[]>(`${this.urlApi}/clientes`, { params: parametros });
+    return this.http.get<any>(`${this.urlApi}/clientes`, { params: parametros });
   }
 
   getCliente(id: number): Observable<Cliente> {

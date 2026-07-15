@@ -94,27 +94,7 @@ import { Cliente } from '../../models/customer';
       </div>
     </div>
   `,
-  styles: [`
-    .dashboard-wrapper { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
-    .intro-bar { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
-    .subtitle { color: var(--text-secondary); margin-top: 0.25rem; }
-    .register-card { border-color: rgba(99, 102, 241, 0.2); padding: 2rem; }
-    .grid-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-    .full-width { grid-column: span 2; }
-    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .form-label { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
-    .form-control { padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.4); color: var(--text-primary); }
-    .form-actions { margin-top: 0.5rem; }
-    .validation-hint { margin-top: 0.25rem; font-size: 0.75rem; }
-    .hint-text { display: flex; align-items: center; gap: 0.25rem; }
-    .tiny-icon { font-size: 0.9rem; }
-    .text-success { color: var(--accent-success); }
-    .text-danger { color: var(--accent-danger); }
-    .text-muted { color: var(--text-muted); }
-    .alert { margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
-    .alert-danger { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #fca5a5; }
-    .mt-3 { margin-top: 1rem; }
-  `]
+  styleUrl: './customer-form.component.css'
 })
 export class CustomerFormComponent implements OnInit {
   isEditMode = false;

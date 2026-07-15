@@ -6,7 +6,7 @@ class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre_empresa = db.Column(db.String(150), nullable=False)
     identificador_fiscal = db.Column(db.String(50), nullable=False, unique=True)
-    correo = db.Column(db.String(120), nullable=False)
+    correo = db.Column(db.String(120), nullable=False, unique=True)
     pais = db.Column(db.String(100), nullable=False)
     plan = db.Column(db.String(50), nullable=False)
 

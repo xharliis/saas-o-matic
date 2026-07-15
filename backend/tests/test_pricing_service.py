@@ -30,13 +30,13 @@ class TestServicioPrecios(unittest.TestCase):
         self.assertEqual(costes_es['coste_impuesto'], 29.40)
         self.assertEqual(costes_es['coste_total'], 169.40)
         
-        # USA (0% de IVA)
-        # 15 usuarios -> base=140, IVA=0, total=140
+        # USA (10% de IVA/Tax)
+        # 15 usuarios -> base=140, IVA=14.0, total=154.0
         costes_us = ServicioPrecios.calcular_costes_simulacion(15, "United States")
         self.assertEqual(costes_us['coste_base'], 140.0)
-        self.assertEqual(costes_us['tipo_impositivo'], 0.0)
-        self.assertEqual(costes_us['coste_impuesto'], 0.0)
-        self.assertEqual(costes_us['coste_total'], 140.0)
+        self.assertEqual(costes_us['tipo_impositivo'], 0.10)
+        self.assertEqual(costes_us['coste_impuesto'], 14.0)
+        self.assertEqual(costes_us['coste_total'], 154.0)
 
 if __name__ == '__main__':
     unittest.main()

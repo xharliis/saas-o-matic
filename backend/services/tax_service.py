@@ -93,12 +93,14 @@ class ServicioImpuestos:
 
     @staticmethod
     def obtener_tipo_impositivo(pais: str) -> float:
-        """
-        Retorna el tipo impositivo (IVA) en porcentaje para un país.
-        Para España, retorna 0.21 (21%).
-        Para otros países, por defecto retorna 0.0 (0%).
-        """
-        pais_limpio = pais.strip().lower()
-        if pais_limpio in ["spain", "españa", "es"]:
-            return 0.21
-        return 0.0
+        """Retorna el tipo impositivo (IVA) en porcentaje para un país."""
+        tasas = {
+            "spain": 0.21, "españa": 0.21, "es": 0.21,
+            "germany": 0.19, "alemania": 0.19, "de": 0.19,
+            "france": 0.20, "francia": 0.20, "fr": 0.20,
+            "united kingdom": 0.20, "reino unido": 0.20, "uk": 0.20, "gb": 0.20,
+            "japan": 0.10, "japon": 0.10, "japón": 0.10, "jp": 0.10,
+            "canada": 0.05, "canadá": 0.05, "ca": 0.05,
+            "united states": 0.10, "usa": 0.10, "us": 0.10, "eeuu": 0.10, "estados unidos": 0.10, "united states of america": 0.10
+        }
+        return tasas.get(pais.strip().lower(), 0.0)

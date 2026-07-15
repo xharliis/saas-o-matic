@@ -34,7 +34,14 @@ class TestServicioImpuestos(unittest.TestCase):
         self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("Spain"), 0.21)
         self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("España"), 0.21)
         self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("ES"), 0.21)
-        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("USA"), 0.0)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("Germany"), 0.19)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("France"), 0.20)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("Reino Unido"), 0.20)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("Japón"), 0.10)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("Canada"), 0.05)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("USA"), 0.10)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("United States"), 0.10)
+        self.assertEqual(ServicioImpuestos.obtener_tipo_impositivo("Others"), 0.0)
 
 if __name__ == '__main__':
     unittest.main()

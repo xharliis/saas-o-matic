@@ -233,418 +233,7 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
       </div>
     </div>
   `,
-  styles: [`
-    .detail-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .action-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .back-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-    .back-link:hover {
-      color: #fff;
-    }
-    .glass-card-small {
-      background: rgba(30, 41, 59, 0.45);
-      border: 1px solid var(--glass-border);
-      border-radius: 9999px;
-      padding: 0.5rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .form-label-inline {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .select-inline {
-      background: transparent;
-      border: none;
-      color: var(--accent-secondary);
-      font-family: var(--font-sans);
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      outline: none;
-    }
-    .select-inline option {
-      background-color: var(--bg-secondary);
-      color: #fff;
-    }
-    .layout-grid {
-      display: grid;
-      grid-template-columns: 450px 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    .left-col {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .customer-info-card {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .card-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(56, 189, 248, 0.2));
-      border: 1px solid var(--glass-border-focus);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-secondary);
-      margin-bottom: 1rem;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-    .card-avatar .material-icons-round {
-      font-size: 2.25rem;
-    }
-    .badge-row {
-      display: flex;
-      gap: 0.5rem;
-      margin: 0.75rem 0 1.5rem;
-    }
-    .plan-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .badge-basic { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
-    .badge-growth { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-    .badge-enterprise { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-    .country-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-secondary);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-    }
-    .info-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      text-align: left;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 1.25rem;
-    }
-    .info-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .info-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .info-value {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    .card-title {
-      font-size: 1.15rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding-bottom: 0.75rem;
-    }
-    .icon-inline {
-      color: var(--accent-secondary);
-    }
-    .empty-history {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      color: var(--text-secondary);
-    }
-    .empty-history .empty-icon {
-      font-size: 2.5rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-    .small-text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-    .history-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      max-height: 400px;
-      overflow-y: auto;
-      padding-right: 0.25rem;
-    }
-    .history-item {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 8px;
-      padding: 0.85rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      transition: all 0.2s ease;
-    }
-    .history-item:hover {
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(255,255,255,0.08);
-    }
-    .history-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .history-date {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    .usage-badges {
-      display: flex;
-      gap: 0.4rem;
-    }
-    .usage-badge {
-      font-size: 0.75rem;
-      background: rgba(15,23,42,0.5);
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 0.1rem 0.4rem;
-      border-radius: 4px;
-      color: var(--text-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.2rem;
-    }
-    .usage-badge .material-icons-round {
-      font-size: 0.85rem;
-    }
-    .history-financials {
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .price-converted {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent-success);
-    }
-    .price-original {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    .simulation-sliders {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .slider-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .slider-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .slider-value {
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .badge-primary { background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
-    .badge-secondary { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
-    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
-    .range-slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 6px;
-      border-radius: 9999px;
-      background: rgba(255,255,255,0.08);
-      outline: none;
-    }
-    .range-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--accent-primary);
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-      transition: transform 0.1s ease;
-    }
-    .range-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-    }
-    .range-slider-secondary::-webkit-slider-thumb {
-      background: var(--accent-secondary);
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-    .range-slider-emerald::-webkit-slider-thumb {
-      background: var(--accent-success);
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-    }
-    .slider-range-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    .cost-projection-box {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.2) 100%);
-      border: 1px solid var(--glass-border-focus);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.05);
-    }
-    .projection-title {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-    .price-display {
-      display: flex;
-      align-items: baseline;
-      gap: 0.25rem;
-      margin-bottom: 1.25rem;
-    }
-    .large-price {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #fff;
-      background: linear-gradient(to right, #ffffff, #c7d2fe);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 10px rgba(99,102,241,0.2));
-    }
-    .currency-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .breakdown-details {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .breakdown-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-    .border-top {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 0.75rem;
-    }
-    .total-row {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      border-top: 1px dashed rgba(255,255,255,0.15);
-      padding-top: 0.75rem;
-    }
-    .accent-color {
-      color: var(--accent-secondary);
-    }
-    .tier-explanation {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding-left: 1rem;
-      margin: 0.25rem 0;
-    }
-    .tier-step {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    .bullet {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent-primary);
-    }
-    .btn-block {
-      width: 100%;
-    }
-    .alert {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-    }
-    .alert-danger {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
-    }
-    .alert-success {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      color: #a7f3d0;
-    }
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-top: 2px solid #fff;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @media (max-width: 968px) {
-      .layout-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  `]
+  styleUrl: './customer-detail.component.css'
 })
 export class CustomerDetailComponent implements OnInit {
   cliente?: Cliente;
@@ -741,16 +330,38 @@ export class CustomerDetailComponent implements OnInit {
     });
   }
 
+  private etiquetasImpuestos: { [key: string]: string } = {
+    'españa': 'IVA España', 'spain': 'IVA España', 'es': 'IVA España',
+    'alemania': 'IVA Alemania', 'germany': 'IVA Alemania', 'de': 'IVA Alemania',
+    'francia': 'IVA Francia', 'france': 'IVA Francia', 'fr': 'IVA Francia',
+    'reino unido': 'VAT Reino Unido', 'united kingdom': 'VAT Reino Unido', 'uk': 'VAT Reino Unido', 'gb': 'VAT Reino Unido',
+    'japón': 'Impuesto al Consumo Japón', 'japon': 'Impuesto al Consumo Japón', 'japan': 'Impuesto al Consumo Japón', 'jp': 'Impuesto al Consumo Japón',
+    'canadá': 'GST federal Canadá', 'canada': 'GST federal Canadá', 'ca': 'GST federal Canadá',
+    'estados unidos': 'Tax Estados Unidos', 'united states': 'Tax Estados Unidos', 'usa': 'Tax Estados Unidos', 'us': 'Tax Estados Unidos', 'eeuu': 'Tax Estados Unidos'
+  };
+
   obtenerPorcentajeImpuestoEtiqueta(): string {
     if (!this.cliente) return '0%';
-    const pais = this.cliente.pais.toLowerCase();
-    if (pais === 'españa' || pais === 'es' || pais === 'spain') return '21%';
-    return '0%';
+    const pais = this.cliente.pais.toLowerCase().trim();
+    const tasas: { [key: string]: string } = {
+      'españa': '21%', 'spain': '21%', 'es': '21%',
+      'alemania': '19%', 'germany': '19%', 'de': '19%',
+      'francia': '20%', 'france': '20%', 'fr': '20%',
+      'reino unido': '20%', 'united kingdom': '20%', 'uk': '20%', 'gb': '20%',
+      'japón': '10%', 'japon': '10%', 'japan': '10%', 'jp': '10%',
+      'canadá': '5%', 'canada': '5%', 'ca': '5%',
+      'estados unidos': '10%', 'united states': '10%', 'usa': '10%', 'us': '10%', 'eeuu': '10%'
+    };
+    return tasas[pais] || '0%';
   }
 
   obtenerEtiquetaImpuesto(): string {
+    if (!this.cliente) return 'Exento (0%)';
+    const pais = this.cliente.pais.toLowerCase().trim();
     const porcentaje = this.obtenerPorcentajeImpuestoEtiqueta();
-    return porcentaje !== '0%' ? `${porcentaje} (IVA España)` : 'Exento (0%)';
+    if (porcentaje === '0%') return 'Exento (0%)';
+    const label = this.etiquetasImpuestos[pais] || this.cliente.pais;
+    return `${porcentaje} (${label})`;
   }
 
   alCambiarDivisa(): void {

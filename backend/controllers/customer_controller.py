@@ -15,12 +15,19 @@ def crear_cliente():
         # Validar la entrada de datos con el esquema de Pydantic
         datos_validados = ClienteCrear(**datos)
         
-        # Verificar si el cliente ya existe
+        # Verificar si el cliente ya existe por Identificador Fiscal o por Correo
         cliente_existente = Cliente.query.filter_by(identificador_fiscal=datos_validados.identificador_fiscal).first()
         if cliente_existente:
             return jsonify({
                 "error": "Conflict",
                 "message": f"El cliente con Identificador Fiscal {datos_validados.identificador_fiscal} ya está registrado."
+            }), 409
+
+        cliente_existente_correo = Cliente.query.filter_by(correo=datos_validados.correo).first()
+        if cliente_existente_correo:
+            return jsonify({
+                "error": "Conflict",
+                "message": f"El cliente con correo {datos_validados.correo} ya está registrado."
             }), 409
 
         nuevo_cliente = Cliente(
@@ -52,19 +59,30 @@ def crear_cliente():
 @cliente_bp.route('/clientes', methods=['GET'])
 def obtener_clientes():
     """
-    Obtiene clientes. Permite búsqueda utilizando el parámetro de consulta 'q'.
+    Obtiene clientes. Permite búsqueda utilizando el parámetro de consulta 'q' y paginación.
     """
     try:
         consulta_busqueda = request.args.get('q', '').strip()
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 6, type=int)
+
+        query = Cliente.query
         if consulta_busqueda:
-            clientes = Cliente.query.filter(
+            query = query.filter(
                 (Cliente.nombre_empresa.ilike(f"%{consulta_busqueda}%")) | 
                 (Cliente.identificador_fiscal.ilike(f"%{consulta_busqueda}%"))
-            ).all()
-        else:
-            clientes = Cliente.query.all()
+            )
             
-        return jsonify([c.a_diccionario() for c in clientes]), 200
+        total = query.count()
+        clientes = query.offset((page - 1) * per_page).limit(per_page).all()
+            
+        return jsonify({
+            'clientes': [c.a_diccionario() for c in clientes],
+            'total': total,
+            'paginas': (total + per_page - 1) // per_page if total > 0 else 0,
+            'pagina_actual': page,
+            'por_pagina': per_page
+        }), 200
     except Exception as e:
         return jsonify({
             "error": "Internal Server Error",
@@ -107,6 +125,12 @@ def actualizar_cliente(cliente_id):
             cliente_existente = Cliente.query.filter_by(identificador_fiscal=datos_validados.identificador_fiscal).first()
             if cliente_existente:
                 return jsonify({"error": "Conflict", "message": "El Identificador Fiscal ya existe."}), 409
+
+        # Check for unique email if changed
+        if cliente.correo != datos_validados.correo:
+            cliente_existente_correo = Cliente.query.filter_by(correo=datos_validados.correo).first()
+            if cliente_existente_correo:
+                return jsonify({"error": "Conflict", "message": "El correo ya está registrado por otro cliente."}), 409
 
         cliente.nombre_empresa = datos_validados.nombre_empresa
         cliente.identificador_fiscal = datos_validados.identificador_fiscal
