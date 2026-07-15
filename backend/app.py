@@ -34,19 +34,30 @@ def crear_app(clase_configuracion=Config):
         from models.simulation import Simulacion
         from services.pricing_service import ServicioPrecios
         
-        if Cliente.query.count() == 0:
+        if Cliente.query.count() < 10:
+            # Limpiar datos existentes para evitar conflictos de identificador_fiscal o correo único
+            Simulacion.query.delete()
+            Cliente.query.delete()
+            db.session.commit()
+
             clientes_mock = [
-                Cliente(nombre_empresa="Acme Corp", identificador_fiscal="B12345678", correo="contacto@acme.es", pais="España", plan="Premium"),
-                Cliente(nombre_empresa="TechFlow LLC", identificador_fiscal="US987654321", correo="billing@techflow.com", pais="USA", plan="Enterprise"),
-                Cliente(nombre_empresa="EuroSoft GmbH", identificador_fiscal="DE123456789", correo="info@eurosoft.de", pais="Alemania", plan="Basic"),
-                Cliente(nombre_empresa="Global Logistics", identificador_fiscal="A87654321", correo="admin@globallog.es", pais="España", plan="Premium")
+                Cliente(nombre_empresa="Acme Corp", identificador_fiscal="B12345678", correo="contacto@acme.es", pais="España", plan="SaaS Enterprise"),
+                Cliente(nombre_empresa="TechFlow LLC", identificador_fiscal="US987654321", correo="billing@techflow.com", pais="Estados Unidos", plan="SaaS Enterprise"),
+                Cliente(nombre_empresa="EuroSoft GmbH", identificador_fiscal="DE123456789", correo="info@eurosoft.de", pais="Alemania", plan="SaaS Basic"),
+                Cliente(nombre_empresa="Global Logistics", identificador_fiscal="A87654321", correo="admin@globallog.es", pais="España", plan="SaaS Growth"),
+                Cliente(nombre_empresa="UK Trading", identificador_fiscal="GB112233445", correo="billing@uktrading.co.uk", pais="Reino Unido", plan="SaaS Basic"),
+                Cliente(nombre_empresa="JapanTech Corp", identificador_fiscal="JP123456789", correo="info@japantech.jp", pais="Japón", plan="SaaS Growth"),
+                Cliente(nombre_empresa="Maple Syrup Co", identificador_fiscal="CA998877665", correo="contact@maplesyrup.ca", pais="Canadá", plan="SaaS Basic"),
+                Cliente(nombre_empresa="Alps Solutions", identificador_fiscal="FR556677889", correo="sales@alpssolutions.fr", pais="Francia", plan="SaaS Growth"),
+                Cliente(nombre_empresa="Berlin Startups", identificador_fiscal="DE987654321", correo="hello@berlinstartups.de", pais="Alemania", plan="SaaS Basic"),
+                Cliente(nombre_empresa="US Cloud Services", identificador_fiscal="US112233445", correo="support@uscloudservices.com", pais="Estados Unidos", plan="SaaS Enterprise")
             ]
             db.session.add_all(clientes_mock)
             db.session.commit()
 
             # Seed 1 simulacion por cada cliente
             for c in clientes_mock:
-                usuarios = 20 if c.plan == "Premium" else 5
+                usuarios = 20 if "Enterprise" in c.plan else (12 if "Growth" in c.plan else 5)
                 costes = ServicioPrecios.calcular_costes_simulacion(usuarios, c.pais)
                 sim = Simulacion(
                     cliente_id=c.id,
@@ -59,7 +70,7 @@ def crear_app(clase_configuracion=Config):
                 )
                 db.session.add(sim)
             db.session.commit()
-            print("Base de datos inicializada con 4 clientes mock y sus simulaciones.")
+            print("Base de datos inicializada con 10 clientes mock y sus simulaciones.")
 
     return app
 

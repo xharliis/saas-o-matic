@@ -24,7 +24,7 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
         <div class="currency-selector-wrapper glass-card-small">
           <span class="material-icons-round">payments</span>
           <label class="form-label-inline">Divisa de Visualización:</label>
-          <select class="select-inline" [(ngModel)]="divisaSeleccionada" (change)="alCambiarDivisa()">
+          <select class="select-inline" [(ngModel)]="divisaSeleccionada">
             <option *ngFor="let divisa of divisas" [value]="divisa">{{ divisa }}</option>
           </select>
         </div>
@@ -363,9 +363,6 @@ export class CustomerDetailComponent implements OnInit {
     return `${porcentaje} (${label})`;
   }
 
-  alCambiarDivisa(): void {
-    // Redibuja las cantidades convertidas en pantalla
-  }
 
   formatearPrecio(importeEnEur: number): string {
     const convertido = this.servicioDivisas.convertir(importeEnEur, this.divisaSeleccionada);

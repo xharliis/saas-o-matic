@@ -26,7 +26,6 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
       </div>
 
       <!-- Sección Principal: Búsqueda y Lista de Clientes -->
-      <div class="glass-card list-card">
         <div class="search-bar-wrapper">
           <span class="material-icons-round search-icon">search</span>
           <input 
@@ -117,7 +116,6 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
           </button>
         </div>
       </div>
-    </div>
   `,
   styleUrl: './dashboard.component.css'
 })
@@ -125,16 +123,16 @@ export class DashboardComponent implements OnInit {
   clientes: Cliente[] = [];
   busquedaQuery: string = '';
   cargando: boolean = true;
-  
+
   // Paginación
   paginaActual: number = 1;
-  porPagina: number = 6;
+  porPagina: number = 9;
   totalClientes: number = 0;
   totalPaginas: number = 0;
 
   private buscadorSubject = new Subject<string>();
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.obtenerListaClientes();

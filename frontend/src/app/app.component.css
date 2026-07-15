@@ -50,9 +50,9 @@
 .header-badge {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--accent-primary);
-  background: rgba(37, 99, 235, 0.08);
-  border: 1px solid rgba(37, 99, 235, 0.15);
+  color: #0284c7;
+  background: rgba(14, 165, 233, 0.06);
+  border: 1px solid rgba(14, 165, 233, 0.15);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   letter-spacing: 0.05em;
