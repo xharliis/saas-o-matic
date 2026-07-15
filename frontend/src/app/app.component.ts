@@ -10,7 +10,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
       <header class="app-header">
         <div class="header-content">
           <a routerLink="/" class="logo-link">
-            <span class="material-icons-round logo-icon">auto_awesome</span>
+            <img src="assets/images/servidor.png" class="logo-img" alt="SaaS-O-Matic Logo">
             <span class="logo-text">SaaS-O-Matic</span>
           </a>
           <div class="header-badge">Subscription & Billing Optimizer</div>

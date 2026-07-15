@@ -75,8 +75,14 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
               </div>
             </div>
             <div class="card-footer" style="display: flex; gap: 10px;">
-              <button class="btn btn-primary" style="flex: 1;" [routerLink]="['/simulations', cliente.id]">Simular</button>
-              <button class="btn btn-secondary" style="flex: 1;" [routerLink]="['/customer', cliente.id, 'edit']">Editar</button>
+              <button class="btn btn-primary" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" [routerLink]="['/simulations', cliente.id]">
+                <img src="assets/images/simulation.png" class="btn-icon" alt="Simular">
+                Simular
+              </button>
+              <button class="btn btn-secondary" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" [routerLink]="['/customer', cliente.id, 'edit']">
+                <img src="assets/images/editar.png" class="btn-icon" alt="Editar">
+                Editar
+              </button>
             </div>
           </div>
         </div>

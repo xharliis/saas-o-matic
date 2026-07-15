@@ -74,13 +74,13 @@ import { Cliente } from '../../models/customer';
           </div>
 
           <div class="form-actions full-width" style="display: flex; justify-content: space-between; align-items: center;">
-            <button *ngIf="isEditMode" type="button" class="btn btn-secondary" style="color: var(--accent-danger); border-color: rgba(239,68,68,0.3)" (click)="eliminarCliente()">
-              <span class="material-icons-round">delete</span>
+            <button *ngIf="isEditMode" type="button" class="btn btn-secondary" style="color: var(--accent-danger); border-color: rgba(239,68,68,0.3); display: flex; align-items: center; gap: 0.5rem;" (click)="eliminarCliente()">
+              <img src="assets/images/borrar.png" class="btn-icon" alt="Eliminar">
               Eliminar
             </button>
             <div style="flex-grow: 1"></div>
-            <button type="submit" class="btn btn-primary" [disabled]="!formularioCliente.form.valid || (esEspanaSeleccionado() && identificadorFiscalValido === false) || enviando">
-              <span class="material-icons-round" *ngIf="!enviando">save</span>
+            <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem;" [disabled]="!formularioCliente.form.valid || (esEspanaSeleccionado() && identificadorFiscalValido === false) || enviando">
+              <img src="assets/images/guardar.png" class="btn-icon" *ngIf="!enviando" alt="Guardar">
               <span class="spinner" *ngIf="enviando"></span>
               {{ isEditMode ? 'Actualizar Cliente' : 'Registrar Cliente' }}
             </button>

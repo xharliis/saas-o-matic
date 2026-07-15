@@ -34,12 +34,10 @@
   color: var(--text-primary);
 }
 
-.logo-icon {
-  font-size: 2rem;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.1));
+.logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .logo-text {

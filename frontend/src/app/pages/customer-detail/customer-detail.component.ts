@@ -38,7 +38,7 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
           <!-- Tarjeta de cliente -->
           <div class="glass-card customer-info-card">
             <div class="card-avatar">
-              <span class="material-icons-round">business</span>
+              <img src="assets/images/empresa.png" class="card-avatar-img" alt="Empresa">
             </div>
             <h2 class="company-name">{{ cliente.nombre_empresa }}</h2>
             <div class="badge-row">
@@ -102,7 +102,6 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
         <div class="right-col">
           <div class="glass-card simulation-form-card">
             <h3 class="card-title">
-              <span class="material-icons-round icon-inline">insights</span>
               Simulación de Costes
             </h3>
 
@@ -212,8 +211,8 @@ import { debounceTime, Subject, distinctUntilChanged } from 'rxjs';
 
             <!-- Acción de guardar simulación -->
             <div class="form-actions">
-              <button class="btn btn-primary btn-block" (click)="guardarSimulacion()" [disabled]="formUsuarios === 0 || guardando">
-                <span class="material-icons-round" *ngIf="!guardando">save_alt</span>
+              <button class="btn btn-primary btn-block" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;" (click)="guardarSimulacion()" [disabled]="formUsuarios === 0 || guardando">
+                <img src="assets/images/guardar.png" class="btn-icon" *ngIf="!guardando" alt="Guardar">
                 <span class="spinner" *ngIf="guardando"></span>
                 Guardar Simulación en Historial
               </button>
@@ -277,7 +276,7 @@ export class CustomerDetailComponent implements OnInit {
       this.cargarDetalleCliente(id);
       this.cargarSimulaciones(id);
     }
-    
+
     // Calentar el caché de tipos de cambio con la API pública
     this.servicioDivisas.getTasasCambio().subscribe({
       error: (e: any) => console.warn('Error en API de Divisas. Usando valores por defecto de respaldo.', e)
@@ -320,7 +319,7 @@ export class CustomerDetailComponent implements OnInit {
         this.costeBaseActual = datos.coste_base;
         this.costeImpuestoActual = datos.coste_impuesto;
         this.costeTotalActual = datos.coste_total;
-        
+
         // Simular un desglose básico ya que el backend no lo devuelve detallado por tramo
         this.desgloseTramosActual = [
           { descripcion: 'Coste total de usuarios activos', coste: datos.coste_base }
@@ -371,7 +370,7 @@ export class CustomerDetailComponent implements OnInit {
   formatearPrecio(importeEnEur: number): string {
     const convertido = this.servicioDivisas.convertir(importeEnEur, this.divisaSeleccionada);
     const simbolo = this.servicioDivisas.obtenerSimbolo(this.divisaSeleccionada);
-    
+
     const formateado = new Intl.NumberFormat('es-ES', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
@@ -400,7 +399,7 @@ export class CustomerDetailComponent implements OnInit {
         this.simulaciones.unshift(simulacionGuardada);
         this.guardando = false;
         this.guardadoExitoso = true;
-        
+
         // Ocultar alerta de éxito tras 3 segundos
         setTimeout(() => this.guardadoExitoso = false, 3000);
       },

@@ -95,3 +95,9 @@
 .mt-3 {
   margin-top: 1rem;
 }
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
