@@ -263,8 +263,7 @@ export class CustomerDetailComponent implements OnInit {
   ) {
     this.divisas = this.servicioDivisas.divisasSoportadas;
     this.simuladorSubject.pipe(
-      debounceTime(200),
-      distinctUntilChanged()
+      debounceTime(200)
     ).subscribe(() => {
       this.realizarSimulacionBackend();
     });

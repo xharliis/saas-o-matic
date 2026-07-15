@@ -1,9 +1,6 @@
 import os
 
 class Config:
-    # Clave secreta para la seguridad de la sesión
-    SECRET_KEY = os.environ.get('SECRET_KEY', 'clave-secreta-desarrollo-saas-o-matic')
-    
     # Directorio base del proyecto
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     

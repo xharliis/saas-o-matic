@@ -20,7 +20,17 @@ Este documento resume de manera técnica las discusiones, decisiones de arquitec
 
 ---
 
-## 2. Refactorizaciones y Mantenibilidad de Código
+## 2. Refactorizaciones y Limpieza del Backend
+
+* **Remoción de Configuración de Sesión**: Se eliminó la propiedad `SECRET_KEY` de `config.py` al no ser requerida por la API REST stateless de Flask.
+* **Depuración de Servicios y Dependencias**:
+  * Se eliminó el archivo `currency_service.py` al estar en desuso en el servidor (la lógica de divisas corre 100% en el cliente de Angular).
+  * Se retiró su importación en `backend/services/__init__.py`.
+  * Se removió la librería `requests` de `requirements.txt` dado que no existen otros consumos HTTP salientes en el backend.
+
+---
+
+## 3. Refactorizaciones y Mantenibilidad del Frontend
 
 * **Extracción de Código CSS**: Se extrajeron más de 700 líneas de estilos inline de los decoradores `@Component` de Angular hacia archivos externos:
   * `DashboardComponent` -> `dashboard.component.css`
@@ -28,13 +38,12 @@ Este documento resume de manera técnica las discusiones, decisiones de arquitec
   * `CustomerFormComponent` -> `customer-form.component.css`
   * `AppComponent` -> `app.component.css`
 * **Limpieza de Código Muerto**: Se eliminó el método redundante `alCambiarDivisa()` en `CustomerDetailComponent` y su enlace de eventos `(change)` en la plantilla, delegando la reactividad en el enlace bidireccional de Angular `[(ngModel)]`.
-* **Optimización de Estructuras Condicionales**:
-  * **Backend**: Se refactorizó el método `obtener_tipo_impositivo` en `tax_service.py`, reemplazando una cadena iterativa de sentencias `if-elif` por una búsqueda directa optimizada en diccionario con `.get()`.
-  * **Frontend**: Se simplificaron los métodos `obtenerPorcentajeImpuestoEtiqueta` y `obtenerEtiquetaImpuesto` de `CustomerDetailComponent` a través de mapeos clave-valor dinámicos indexados por país.
+* **Corrección de Reactividad en Simulador (RxJS)**: Se detectó que al arrastrar la barra de usuarios activos no se recalculaban los importes en tiempo real tras la primera emisión. Esto ocurría porque el subject emite un valor `void` (interpretado como `undefined`), y el operador `distinctUntilChanged()` descartaba de manera consecutiva todas las llamadas duplicadas (`undefined === undefined`). Se eliminó dicho operador de la tubería, solventando la reactividad inmediata del simulador.
+* **Optimización de Estructuras Condicionales**: Se simplificaron los métodos de cálculo impositivo a través de mapas y diccionarios clave-valor en Python (`tax_service.py`) y TypeScript (`customer-detail.component.ts`) en sustitución de condicionales en cadena.
 
 ---
 
-## 3. Decisiones de Interfaz y Diseño Visual
+## 4. Decisiones de Interfaz y Diseño Visual
 
 * **Transición a Tema Claro (Light Mode)**: Se sustituyó el tema oscuro original por una estética clara basada en la paleta Slate/Sky de la guía de estilos. Los fondos generales se mapearon a `#f8fafc`, las tarjetas y inputs a `#ffffff` con sombras suaves de elevación, y el logotipo y botones se suavizaron para mitigar el contraste excesivo del azul primario.
 * **Simplificación de Capas**: Se eliminó la tarjeta envolvente principal en la vista del panel (`list-card`), permitiendo que el buscador y el grid de clientes se muestren directamente sobre el fondo limpio.
@@ -43,8 +52,8 @@ Este documento resume de manera técnica las discusiones, decisiones de arquitec
 
 ---
 
-## 4. Resultados de Verificación y Compilación
+## 5. Resultados de Verificación y Compilación
 
 * **Pruebas Backend**: Todas las pruebas unitarias del backend en `backend/tests/` pasan satisfactoriamente de forma local y en contenedores (6 pruebas en 0.001s).
 * **Compilación Angular**: El empaquetado de producción de Angular compila con éxito localizando de forma óptima los recursos estáticos.
-* **Orquestación en Contenedores**: El despliegue a través de Docker Compose levanta y recrea los servicios frontend y backend aplicando correctamente los cambios de configuración.
+* **Orquestación en Contenedores**: El despliegue a través de Docker Compose levanta y recrea los servicios frontend y backend aplicando correctamente los cambios de configuración y construyendo la imagen del backend reducida en dependencias.
